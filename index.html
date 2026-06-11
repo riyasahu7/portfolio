@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Riya Sahu — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0a0f1e;
+    --navy2: #111827;
+    --surface: #141c2e;
+    --surface2: #1c2740;
+    --border: rgba(99,179,237,0.15);
+    --accent: #63b3ed;
+    --accent2: #90cdf4;
+    --teal: #4fd1c5;
+    --muted: #8aa4c4;
+    --text: #e2ecf8;
+    --text2: #b0c4de;
+    --green: #68d391;
+    --amber: #f6ad55;
+    --pink: #f687b3;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--navy);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(10,15,30,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .logo { font-size: 1rem; font-weight: 600; color: var(--accent); letter-spacing: 0.05em; font-family: 'JetBrains Mono', monospace; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 6rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image: linear-gradient(var(--accent) 1px, transparent 1px), linear-gradient(90deg, var(--accent) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-content { max-width: 900px; margin: 0 auto; position: relative; }
+  .hero-label {
+    display: inline-block; font-size: 0.8rem; font-family: 'JetBrains Mono', monospace;
+    color: var(--teal); background: rgba(79,209,197,0.1);
+    border: 0.5px solid rgba(79,209,197,0.3);
+    padding: 0.3rem 0.8rem; border-radius: 4px; margin-bottom: 1.5rem;
+    letter-spacing: 0.08em;
+  }
+  h1 {
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  .hero-name-accent { color: var(--accent); }
+  .hero-subtitle {
+    font-size: 1.2rem; color: var(--muted); margin-bottom: 2rem;
+    font-weight: 400; max-width: 600px;
+  }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+  .btn-primary {
+    padding: 0.75rem 1.75rem; background: var(--accent);
+    color: var(--navy); font-weight: 600; font-size: 0.9rem;
+    border: none; border-radius: 6px; cursor: pointer; text-decoration: none;
+    transition: transform 0.15s, background 0.2s;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+  .btn-outline {
+    padding: 0.75rem 1.75rem; background: transparent;
+    color: var(--text); font-weight: 500; font-size: 0.9rem;
+    border: 0.5px solid rgba(226,236,248,0.3); border-radius: 6px;
+    cursor: pointer; text-decoration: none; transition: border-color 0.2s, color 0.2s;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+  .hero-stats { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+  .stat-item { }
+  .stat-num { font-size: 1.75rem; font-weight: 700; color: var(--accent); font-family: 'JetBrains Mono', monospace; }
+  .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.1rem; }
+
+  /* SECTION */
+  section { padding: 5rem 2rem; max-width: 1000px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.75rem; font-family: 'JetBrains Mono', monospace;
+    color: var(--teal); letter-spacing: 0.15em; text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-size: 2rem; font-weight: 700; margin-bottom: 3rem;
+    letter-spacing: -0.01em;
+  }
+  .divider { width: 100%; height: 0.5px; background: var(--border); max-width: 1000px; margin: 0 auto; }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+  .skill-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 10px; padding: 1.25rem;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .skill-card:hover { border-color: rgba(99,179,237,0.4); transform: translateY(-2px); }
+  .skill-cat { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; margin-bottom: 0.75rem; text-transform: uppercase; }
+  .skill-cat.lang { color: var(--teal); }
+  .skill-cat.web { color: var(--pink); }
+  .skill-cat.db { color: var(--amber); }
+  .skill-cat.cs { color: var(--green); }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .tag {
+    font-size: 0.78rem; padding: 0.25rem 0.6rem;
+    border-radius: 4px; background: var(--surface2);
+    color: var(--text2); border: 0.5px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; gap: 1.5rem; }
+  .project-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 12px; padding: 1.75rem;
+    transition: border-color 0.2s, transform 0.15s;
+    position: relative; overflow: hidden;
+  }
+  .project-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  }
+  .project-card.p1::before { background: linear-gradient(90deg, var(--accent), var(--teal)); }
+  .project-card.p2::before { background: linear-gradient(90deg, var(--pink), var(--amber)); }
+  .project-card:hover { border-color: rgba(99,179,237,0.35); transform: translateY(-2px); }
+  .project-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.75rem; gap: 1rem; }
+  .project-name { font-size: 1.15rem; font-weight: 600; }
+  .project-type { font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 500; white-space: nowrap; }
+  .type-ai { background: rgba(99,179,237,0.12); color: var(--accent); border: 0.5px solid rgba(99,179,237,0.25); }
+  .type-fs { background: rgba(246,173,85,0.12); color: var(--amber); border: 0.5px solid rgba(246,173,85,0.25); }
+  .project-desc { font-size: 0.9rem; color: var(--text2); margin-bottom: 1rem; line-height: 1.65; }
+  .project-bullets { list-style: none; margin-bottom: 1.25rem; }
+  .project-bullets li {
+    font-size: 0.875rem; color: var(--text2); padding: 0.2rem 0;
+    padding-left: 1rem; position: relative;
+  }
+  .project-bullets li::before { content: '›'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .stack-tag { font-size: 0.72rem; font-family: 'JetBrains Mono', monospace; padding: 0.2rem 0.55rem; background: var(--surface2); color: var(--muted); border-radius: 3px; }
+
+  /* CERTS */
+  .certs-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+  .cert-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 10px; padding: 1.25rem 1.5rem;
+    display: flex; align-items: flex-start; gap: 0.875rem;
+    transition: border-color 0.2s;
+  }
+  .cert-card:hover { border-color: rgba(99,179,237,0.35); }
+  .cert-icon {
+    width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 1rem;
+  }
+  .cert-icon.cy { background: rgba(79,209,197,0.15); color: var(--teal); }
+  .cert-icon.wd { background: rgba(246,173,85,0.15); color: var(--amber); }
+  .cert-icon.cl { background: rgba(99,179,237,0.15); color: var(--accent); }
+  .cert-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.2rem; }
+  .cert-org { font-size: 0.78rem; color: var(--muted); }
+  .cert-date { font-size: 0.72rem; font-family: 'JetBrains Mono', monospace; color: var(--teal); margin-top: 0.35rem; }
+
+  /* EDUCATION */
+  .edu-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 12px; padding: 2rem;
+    display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: start;
+  }
+  .edu-school { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.25rem; }
+  .edu-degree { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.75rem; }
+  .edu-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .cgpa-badge {
+    font-family: 'JetBrains Mono', monospace; font-size: 2rem; font-weight: 700;
+    color: var(--accent); text-align: right;
+  }
+  .cgpa-label { font-size: 0.75rem; color: var(--muted); text-align: right; }
+
+  /* ACHIEVEMENTS */
+  .ach-list { display: flex; flex-direction: column; gap: 0.875rem; }
+  .ach-item {
+    display: flex; align-items: flex-start; gap: 1rem;
+    background: var(--surface); border: 0.5px solid var(--border);
+    border-radius: 8px; padding: 1rem 1.25rem;
+  }
+  .ach-num { font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; color: var(--teal); padding-top: 2px; min-width: 28px; }
+  .ach-text { font-size: 0.9rem; color: var(--text2); }
+
+  /* CONTACT */
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+  .contact-card {
+    background: var(--surface); border: 0.5px solid var(--border);
+    border-radius: 10px; padding: 1.25rem; text-align: center;
+    text-decoration: none; color: var(--text);
+    transition: border-color 0.2s, transform 0.15s;
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  }
+  .contact-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .contact-icon { font-size: 1.5rem; }
+  .contact-type { font-size: 0.75rem; color: var(--muted); }
+  .contact-val { font-size: 0.85rem; font-weight: 500; color: var(--text2); word-break: break-all; }
+
+  footer {
+    text-align: center; padding: 2rem;
+    border-top: 0.5px solid var(--border);
+    font-size: 0.8rem; color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 0.75rem 1rem; }
+    .nav-links { gap: 1rem; }
+    .hero { padding: 5rem 1rem 3rem; }
+    section { padding: 3.5rem 1rem; }
+    .edu-card { grid-template-columns: 1fr; }
+    .cgpa-badge { font-size: 1.5rem; text-align: left; }
+    .cgpa-label { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="logo">riya.sahu</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="about">
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-label">// B.Tech CSE · Cybersecurity · PSIT Kanpur</div>
+    <h1>Hi, I'm <span class="hero-name-accent">Riya Sahu</span></h1>
+    <p class="hero-subtitle">Full-stack developer with a passion for AI/NLP applications, REST APIs, and secure systems. Building solutions that matter.</p>
+    <div class="hero-cta">
+      <a href="mailto:sahuriyaknp78@gmail.com" class="btn-primary">Get in touch</a>
+      <a href="#projects" class="btn-outline">View projects</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">7.92</div>
+        <div class="stat-label">CGPA / 10.0</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">200+</div>
+        <div class="stat-label">DSA Problems Solved</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Industry Certifications</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">2027</div>
+        <div class="stat-label">Graduating</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">// 02 · Technical Skills</div>
+  <h2 class="section-title">What I work with</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-cat lang">Languages</div>
+      <div class="skill-tags">
+        <span class="tag">C</span>
+        <span class="tag">C++</span>
+        <span class="tag">Python</span>
+        <span class="tag">Java</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-cat web">Web & Frameworks</div>
+      <div class="skill-tags">
+        <span class="tag">HTML5</span>
+        <span class="tag">CSS3</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">React.js</span>
+        <span class="tag">Flask</span>
+        <span class="tag">Node.js</span>
+        <span class="tag">REST APIs</span>
+        <span class="tag">Bootstrap</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-cat db">Databases & Tools</div>
+      <div class="skill-tags">
+        <span class="tag">MySQL</span>
+        <span class="tag">MongoDB</span>
+        <span class="tag">Git</span>
+        <span class="tag">GitHub</span>
+        <span class="tag">VS Code</span>
+        <span class="tag">Cloud</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-cat cs">CS Fundamentals</div>
+      <div class="skill-tags">
+        <span class="tag">DSA</span>
+        <span class="tag">OOP</span>
+        <span class="tag">DBMS</span>
+        <span class="tag">OS</span>
+        <span class="tag">Networks</span>
+        <span class="tag">Cybersecurity</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">// 03 · Project Experience</div>
+  <h2 class="section-title">Things I've built</h2>
+  <div class="projects-grid">
+    <div class="project-card p1">
+      <div class="project-header">
+        <div class="project-name">AI Resume Builder</div>
+        <span class="project-type type-ai">AI / NLP</span>
+      </div>
+      <p class="project-desc">An intelligent resume builder that uses NLP and the OpenAI API to generate ATS-optimized resumes — cutting manual creation time by approximately 60%.</p>
+      <ul class="project-bullets">
+        <li>Built AI-driven resume generation with Python/Flask and OpenAI API with NLP-based ATS optimization</li>
+        <li>Designed RESTful API endpoints for resume generation and export with structured MongoDB storage</li>
+        <li>Responsive Bootstrap frontend supporting 5+ file export formats</li>
+      </ul>
+      <div class="project-stack">
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">Flask</span>
+        <span class="stack-tag">JavaScript</span>
+        <span class="stack-tag">Bootstrap</span>
+        <span class="stack-tag">OpenAI API</span>
+        <span class="stack-tag">NLP</span>
+        <span class="stack-tag">MongoDB</span>
+      </div>
+    </div>
+
+    <div class="project-card p2">
+      <div class="project-header">
+        <div class="project-name">Mock Markets — Stock Simulation Platform</div>
+        <span class="project-type type-fs">Full Stack</span>
+      </div>
+      <p class="project-desc">A full-stack stock market simulation platform with real-time data, dynamic portfolio tracking, and sub-2s latency across 100+ ticker symbols.</p>
+      <ul class="project-bullets">
+        <li>Integrated Yahoo Finance and MarketStack APIs for live data across 100+ tickers with sub-2s latency</li>
+        <li>Built Flask/Node.js REST API backend with normalized MySQL schema</li>
+        <li>Cloud-deployed with React.js frontend featuring dynamic portfolio dashboards</li>
+      </ul>
+      <div class="project-stack">
+        <span class="stack-tag">React.js</span>
+        <span class="stack-tag">Flask</span>
+        <span class="stack-tag">Node.js</span>
+        <span class="stack-tag">MySQL</span>
+        <span class="stack-tag">Yahoo Finance API</span>
+        <span class="stack-tag">MarketStack API</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label">// 04 · Education</div>
+  <h2 class="section-title">Academic background</h2>
+  <div class="edu-card">
+    <div>
+      <div class="edu-school">Pranveer Singh Institute of Technology, Kanpur</div>
+      <div class="edu-degree">B.Tech — Computer Science Engineering (Cybersecurity) · AKTU · 2023–2027</div>
+      <div class="edu-tags">
+        <span class="tag">DSA</span>
+        <span class="tag">OOP</span>
+        <span class="tag">DBMS</span>
+        <span class="tag">Operating Systems</span>
+        <span class="tag">Computer Networks</span>
+        <span class="tag">Cryptography</span>
+      </div>
+    </div>
+    <div>
+      <div class="cgpa-badge">7.92</div>
+      <div class="cgpa-label">CGPA / 10.0</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CERTIFICATIONS -->
+<section id="certs">
+  <div class="section-label">// 05 · Certifications</div>
+  <h2 class="section-title">Credentials</h2>
+  <div class="certs-list">
+    <div class="cert-card">
+      <div class="cert-icon cy">🛡</div>
+      <div>
+        <div class="cert-title">Cybersecurity Basics</div>
+        <div class="cert-org">Skill India</div>
+        <div class="cert-date">Aug 2024</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon wd">⚡</div>
+      <div>
+        <div class="cert-title">Web Development</div>
+        <div class="cert-org">YHills Edutech / Codesoft</div>
+        <div class="cert-date">May–Jun 2024</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon cl">☁</div>
+      <div>
+        <div class="cert-title">Cloud Computing</div>
+        <div class="cert-org">YHills Edutech</div>
+        <div class="cert-date">Sep 2024</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section-label">// 06 · Achievements</div>
+  <h2 class="section-title">Highlights</h2>
+  <div class="ach-list">
+    <div class="ach-item">
+      <div class="ach-num">01</div>
+      <div class="ach-text">Solved 200+ DSA problems on LeetCode and competitive programming platforms using C++ and Python.</div>
+    </div>
+    <div class="ach-item">
+      <div class="ach-num">02</div>
+      <div class="ach-text">Completed 4 industry certifications in Cybersecurity, Web Development, and Cloud Computing within the first two years of B.Tech.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">// 07 · Contact</div>
+  <h2 class="section-title">Let's connect</h2>
+  <div class="contact-grid">
+    <a href="mailto:sahuriyaknp78@gmail.com" class="contact-card">
+      <div class="contact-icon">✉</div>
+      <div class="contact-type">Email</div>
+      <div class="contact-val">sahuriyaknp78@gmail.com</div>
+    </a>
+    <a href="tel:+917651953903" class="contact-card">
+      <div class="contact-icon">📱</div>
+      <div class="contact-type">Phone</div>
+      <div class="contact-val">+91 7651953903</div>
+    </a>
+    <a href="https://www.linkedin.com/in/riya-sahu-a7b40a334/" target="_blank" class="contact-card">
+      <div class="contact-icon">💼</div>
+      <div class="contact-type">LinkedIn</div>
+      <div class="contact-val">riya-sahu-a7b40a334</div>
+    </a>
+    <a href="https://github.com/2k23cscys2311475-hash" target="_blank" class="contact-card">
+      <div class="contact-icon">⌨</div>
+      <div class="contact-type">GitHub</div>
+      <div class="contact-val">2k23cscys2311475-hash</div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <p>Riya Sahu · B.Tech CSE Cybersecurity · PSIT Kanpur · 2023–2027</p>
+</footer>
+
+</body>
+</html>
